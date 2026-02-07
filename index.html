@@ -56,7 +56,7 @@ const FLOWS=[
     {node:"user",text:"스트리머 방송 시작"},{node:"client",text:"WebRTC 미디어 캡처"},
     {node:"traefik",text:"Traefik Ingress 라우팅"},{node:"media",text:"Media Service: WebRTC/RTMP 처리"},
     {node:"redis",text:"Redis Streams: 방송 시작 이벤트"},{node:"core",text:"Core Service: 스튜디오 상태 업데이트"},
-    {node:"platform",text:"YouTube / Twitch / 치지직 송출"},
+    {node:"platform",text:"YouTube 송출"},
   ]},
   {id:"ai-shorts",label:"AI 쇼츠 생성",color:"#F97316",icon:"✂️",steps:[
     {node:"media",text:"Media Service: 녹화 완료 이벤트"},{node:"redis",text:"Redis Streams: Core에 녹화 완료 전달"},
@@ -173,7 +173,7 @@ function App(){
               {/* ROW 1: Users + Platforms */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:0}}>
                 <Card id="user" icon="👤" title="Users / Streamers" sub="브라우저 · 모바일 접속" {...cp}/>
-                <Card id="platform" icon="📡" title="External Platforms" sub="YouTube · Twitch · 치지직" {...cp}/>
+                <Card id="platform" icon="📡" title="External Platforms" sub="YouTube" {...cp}/>
               </div>
 
               {/* Arrow */}
