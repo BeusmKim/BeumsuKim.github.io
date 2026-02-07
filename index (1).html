@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneTakeStudio — MSA Architecture</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>▶</text></svg>">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body, #root { width: 100%; min-height: 100vh; margin: 0; padding: 0; background: #08080e; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+  @keyframes flowPulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1.3)} }
+  @keyframes stepFadeIn { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes dash { to { stroke-dashoffset: -20; } }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ffffff15; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const FLOWS = [
+  {
+    id: "live-stream",
+    label: "라이브 스트리밍",
+    color: "#EC4899",
+    icon: "📺",
+    steps: [
+      { node: "user", text: "스트리머 방송 시작" },
+      { node: "client", text: "WebRTC 미디어 캡처" },
+      { node: "traefik", text: "Traefik Ingress 라우팅" },
+      { node: "media", text: "Media Service: WebRTC/RTMP 처리" },
+      { node: "redis", text: "Redis Streams: 방송 시작 이벤트 발행" },
+      { node: "core", text: "Core Service: 스튜디오 상태 업데이트" },
+      { node: "platform", text: "YouTube / Twitch / 치지직 송출" },
+    ],
+  },
+  {
+    id: "ai-shorts",
+    label: "AI 쇼츠 생성",
+    color: "#F97316",
+    icon: "✂️",
+    steps: [
+      { node: "media", text: "Media Service: 녹화 완료 이벤트" },
+      { node: "redis", text: "Redis Streams: Core에 녹화 완료 전달" },
+      { node: "core", text: "Core Service: AI 분석 요청" },
+      { node: "ai", text: "AI Service: 하이라이트 구간 추출" },
+      { node: "ai", text: "AI Service: STT + 자막 생성 (Whisper)" },
+      { node: "ai", text: "AI Service: 쇼츠 클립 렌더링" },
+      { node: "core", text: "Core → Media: 쇼츠 저장 요청" },
+      { node: "media", text: "Media Service: EC2 로컬 스토리지 저장" },
+      { node: "client", text: "클라이언트: 쇼츠 카드 표시" },
+    ],
+  },
+  {
+    id: "realtime-chat",
+    label: "실시간 채팅",
+    color: "#0EA5E9",
+    icon: "💬",
+    steps: [
+      { node: "user", text: "시청자 채팅 메시지 전송" },
+      { node: "client", text: "Socket.io 웹소켓 연결" },
+      { node: "traefik", text: "Traefik → Media 라우팅" },
+      { node: "media", text: "Chat Domain: 메시지 브로드캐스트" },
+      { node: "media-db", text: "MySQL: 채팅 로그 저장" },
+      { node: "redis", text: "Redis Streams: 채팅 빈도 이벤트" },
+      { node: "core", text: "Core → AI: 반응 분석 요청" },
+      { node: "ai", text: "AI Service: 하이라이트 마커 생성" },
+      { node: "client", text: "실시간 채팅 UI 업데이트" },
+    ],
+  },
+  {
+    id: "auth-flow",
+    label: "회원가입 / 로그인",
+    color: "#10B981",
+    icon: "🔐",
+    steps: [
+      { node: "user", text: "아이디 / 비밀번호 / 닉네임 입력" },
+      { node: "client", text: "POST /api/auth/register" },
+      { node: "traefik", text: "Traefik IngressRoute → Core" },
+      { node: "core", text: "Core Service: 중복 체크 + bcrypt 해싱" },
+      { node: "core-db", text: "MySQL: User 레코드 저장" },
+      { node: "client", text: "JWT 토큰 발급 → 로그인 완료" },
+    ],
+  },
+  {
+    id: "recording",
+    label: "녹화 & 마커",
+    color: "#8B5CF6",
+    icon: "⏺️",
+    steps: [
+      { node: "client", text: "스트리머 녹화 시작 / 마커 설정" },
+      { node: "traefik", text: "Traefik → Media Service" },
+      { node: "media", text: "Recording Domain: 녹화 세션 생성" },
+      { node: "media", text: "타임라인 + 북마크(마커) 저장" },
+      { node: "media-db", text: "MySQL: 메타데이터 저장" },
+      { node: "media", text: "EC2 로컬 스토리지: 영상 저장" },
+      { node: "redis", text: "Redis Streams: 녹화 완료 이벤트 → Core" },
+      { node: "core", text: "Core → AI: 쇼츠 생성 트리거" },
+      { node: "client", text: "Library에서 녹화본 조회" },
+    ],
+  },
+];
+
+const NODE_COLORS = {
+  user: "#94a3b8", client: "#0EA5E9", traefik: "#2196F3",
+  core: "#10B981", "core-db": "#10B981",
+  media: "#EC4899", "media-db": "#EC4899",
+  ai: "#F97316", redis: "#DC382D", platform: "#6366f1",
+};
+
+const NODE_LABELS = {
+  user: "👤 User", client: "⚛️ Client", traefik: "🔀 Traefik",
+  core: "🟢 Core", "core-db": "🐬 MySQL",
+  media: "🩷 Media", "media-db": "🐬 MySQL",
+  ai: "🧠 AI", redis: "🔴 Redis", platform: "📡 Platforms",
+};
+
+function App() {
+  const [activeFlow, setActiveFlow] = useState("live-stream");
+  const [activeStep, setActiveStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const currentFlow = FLOWS.find((f) => f.id === activeFlow);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % currentFlow.steps.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, [isPlaying, activeFlow, currentFlow.steps.length]);
+
+  useEffect(() => { setActiveStep(0); }, [activeFlow]);
+
+  const archNodes = [
+    { id: "user", x: 5, y: 3, label: "Users / Streamers", icon: "👤", w: 16 },
+    { id: "platform", x: 78, y: 3, label: "YouTube · Twitch · 치지직", icon: "📡", w: 17 },
+    { id: "client", x: 5, y: 15, label: "React / Next.js", sub: "WebRTC · Socket.io · Zustand", icon: "⚛️", w: 24 },
+    { id: "traefik", x: 38, y: 15, label: "Traefik Ingress", sub: "k3s 내장 · SSL/TLS · IngressRoute", icon: "🔀", w: 24 },
+    { id: "core", x: 3, y: 35, label: "Core Service", sub: "Auth · User · Studio · Workspace", icon: "🟢", w: 26, port: "8080" },
+    { id: "media", x: 37, y: 35, label: "Media Service", sub: "Streaming · Recording · Chat · Storage", icon: "🩷", w: 28, port: "8081" },
+    { id: "ai", x: 74, y: 35, label: "AI Service (via Core)", sub: "AutoClip · STT · 자막 · 분석", icon: "🧠", w: 22, port: "8000" },
+    { id: "core-db", x: 3, y: 55, label: "MySQL", icon: "🐬", w: 12 },
+    { id: "media-db", x: 37, y: 55, label: "MySQL", icon: "🐬", w: 12 },
+    { id: "storage", x: 53, y: 55, label: "EC2 Local", icon: "💾", w: 12 },
+    { id: "redis", x: 22, y: 70, label: "Redis (Streams)", sub: "Core ↔ Media 비동기 이벤트", icon: "🔴", w: 40 },
+  ];
+
+  const connections = [
+    { from: "user", to: "client", label: "HTTPS" },
+    { from: "client", to: "traefik", label: "API calls" },
+    { from: "traefik", to: "core" },
+    { from: "traefik", to: "media" },
+    { from: "core", to: "core-db" },
+    { from: "media", to: "media-db" },
+    { from: "media", to: "storage" },
+    { from: "core", to: "redis" },
+    { from: "media", to: "redis" },
+    { from: "core", to: "ai", label: "REST" },
+    { from: "media", to: "platform", label: "RTMP" },
+  ];
+
+  const getNodeCenter = (id) => {
+    const n = archNodes.find((n) => n.id === id);
+    if (!n) return { x: 50, y: 50 };
+    return { x: n.x + n.w / 2, y: n.y + 4 };
+  };
+  const isNodeActive = (nodeId) => {
+    const step = currentFlow?.steps[activeStep];
+    return step && step.node === nodeId;
+  };
+  const isNodeInFlow = (nodeId) => currentFlow?.steps.some((s) => s.node === nodeId);
+
+  return (
+    <div style={{
+      minHeight: "100vh", width: "100%", background: "#08080e", color: "#e2e8f0",
+      fontFamily: "'Noto Sans KR', 'SF Pro Display', sans-serif", padding: "32px 24px",
+    }}>
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 28 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 18, marginBottom: 8 }}>
+          <div style={{
+            width: 72, height: 72, borderRadius: 18,
+            background: "linear-gradient(135deg, #6366f1, #ec4899)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 32, fontWeight: 900, color: "#fff",
+            boxShadow: "0 0 30px rgba(99,102,241,.4)",
+          }}>▶</div>
+          <h1 style={{
+            fontSize: 40, fontWeight: 900, letterSpacing: -1,
+            background: "linear-gradient(135deg, #6366f1, #ec4899, #f59e0b)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          }}>OneTakeStudio</h1>
+        </div>
+        <p style={{ fontSize: 14, color: "#64748b", letterSpacing: 4, fontWeight: 300 }}>
+          DATA FLOW ARCHITECTURE
+        </p>
+      </div>
+
+      <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", gap: 20 }}>
+        {/* Left: Architecture Diagram */}
+        <div style={{ flex: "1 1 65%", minWidth: 0 }}>
+          <div style={{
+            background: "#0f0f18", borderRadius: 18, border: "1px solid #ffffff0a",
+            padding: "20px", position: "relative", overflow: "hidden",
+          }}>
+            <div style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              backgroundImage: "radial-gradient(circle at 1px 1px, #ffffff06 1px, transparent 0)",
+              backgroundSize: "28px 28px",
+            }} />
+            <svg viewBox="0 0 100 82" style={{ width: "100%", height: "auto", position: "relative", zIndex: 1 }}>
+              {connections.map((conn, i) => {
+                const from = getNodeCenter(conn.from);
+                const to = getNodeCenter(conn.to);
+                const bothInFlow = isNodeInFlow(conn.from) && isNodeInFlow(conn.to);
+                return (
+                  <g key={i}>
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y}
+                      stroke={bothInFlow ? currentFlow.color : "#ffffff"}
+                      strokeWidth={bothInFlow ? 0.4 : 0.15}
+                      strokeOpacity={bothInFlow ? 0.5 : 0.1}
+                    />
+                    {conn.label && (
+                      <text x={(from.x+to.x)/2} y={(from.y+to.y)/2-1} fill="#ffffff30"
+                        fontSize="1.6" textAnchor="middle" fontFamily="JetBrains Mono">{conn.label}</text>
+                    )}
+                  </g>
+                );
+              })}
+              {archNodes.map((node) => {
+                const active = isNodeActive(node.id);
+                const inFlow = isNodeInFlow(node.id);
+                const nc = NODE_COLORS[node.id] || "#94a3b8";
+                const bgOp = active ? "30" : inFlow ? "15" : "08";
+                const brOp = active ? "80" : inFlow ? "30" : "12";
+                const h = node.sub ? 9 : 6.5;
+                return (
+                  <g key={node.id}>
+                    <rect x={node.x} y={node.y} width={node.w} height={h} rx="1.8"
+                      fill={`${nc}${bgOp}`} stroke={`${nc}${brOp}`} strokeWidth={active?0.5:0.2}>
+                      {active && <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="1.2s" repeatCount="indefinite"/>}
+                    </rect>
+                    {active && (
+                      <rect x={node.x} y={node.y} width={node.w} height={h} rx="1.8"
+                        fill="none" stroke={nc} strokeWidth="0.3" opacity="0.4">
+                        <animate attributeName="opacity" values="0.2;0.6;0.2" dur="1s" repeatCount="indefinite"/>
+                      </rect>
+                    )}
+                    <text x={node.x+1.5} y={node.y+3.2} fill={active?nc:inFlow?"#e2e8f0":"#94a3b8"}
+                      fontSize="2.2" fontWeight="700" fontFamily="Noto Sans KR, sans-serif">
+                      {node.icon} {node.label}
+                    </text>
+                    {node.sub && (
+                      <text x={node.x+1.5} y={node.y+6.2} fill={inFlow?"#94a3b8":"#475569"}
+                        fontSize="1.6" fontFamily="Noto Sans KR, sans-serif">{node.sub}</text>
+                    )}
+                    {node.port && (
+                      <text x={node.x+node.w-1.5} y={node.y+3.2} fill="#ffffff30"
+                        fontSize="1.5" textAnchor="end" fontFamily="JetBrains Mono">:{node.port}</text>
+                    )}
+                  </g>
+                );
+              })}
+              {(() => {
+                const step = currentFlow.steps[activeStep];
+                const node = archNodes.find((n) => n.id === step.node);
+                if (!node) return null;
+                return (
+                  <circle cx={node.x+node.w/2} cy={node.y+(node.sub?4.5:3.25)} r="1.2" fill={currentFlow.color} opacity="0.6">
+                    <animate attributeName="r" values="1.2;3;1.2" dur="1.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.6;0.15;0.6" dur="1.5s" repeatCount="indefinite"/>
+                  </circle>
+                );
+              })()}
+            </svg>
+          </div>
+        </div>
+
+        {/* Right: Flow Selector & Steps */}
+        <div style={{ flex: "1 1 35%", minWidth: 300 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+            {FLOWS.map((flow) => {
+              const isActive = activeFlow === flow.id;
+              return (
+                <button key={flow.id}
+                  onClick={() => { setActiveFlow(flow.id); setIsPlaying(true); }}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
+                    borderRadius: 12, cursor: "pointer", fontFamily: "inherit", textAlign: "left",
+                    border: `1px solid ${isActive ? flow.color+"50" : "#ffffff0a"}`,
+                    background: isActive ? `${flow.color}12` : "#0f0f18",
+                    color: isActive ? flow.color : "#64748b",
+                    fontSize: 13, fontWeight: isActive ? 700 : 500,
+                    transition: "all 0.25s ease",
+                  }}>
+                  <span style={{ fontSize: 17 }}>{flow.icon}</span>
+                  <span>{flow.label}</span>
+                  {isActive && (
+                    <div style={{
+                      marginLeft: "auto", width: 8, height: 8, borderRadius: "50%",
+                      background: flow.color, boxShadow: `0 0 8px ${flow.color}`,
+                      animation: "flowPulse 1.5s ease-in-out infinite",
+                    }} />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+            <button onClick={() => setIsPlaying(!isPlaying)}
+              style={{ flex: 1, padding: "8px", borderRadius: 10, border: "1px solid #ffffff12",
+                background: "#0f0f18", color: "#94a3b8", cursor: "pointer", fontSize: 13,
+                fontFamily: "inherit", fontWeight: 500 }}>
+              {isPlaying ? "⏸ 일시정지" : "▶ 재생"}
+            </button>
+            <button onClick={() => setActiveStep((p) => (p+1) % currentFlow.steps.length)}
+              style={{ padding: "8px 14px", borderRadius: 10, border: "1px solid #ffffff12",
+                background: "#0f0f18", color: "#94a3b8", cursor: "pointer", fontSize: 13,
+                fontFamily: "inherit", fontWeight: 500 }}>
+              다음 →
+            </button>
+          </div>
+
+          <div style={{ background: "#0f0f18", borderRadius: 16, border: "1px solid #ffffff0a",
+            padding: "18px 16px", maxHeight: 420, overflowY: "auto" }}>
+            <div style={{ fontSize: 11, color: "#475569", marginBottom: 14, letterSpacing: 2, fontWeight: 600 }}>
+              {currentFlow.icon} {currentFlow.label.toUpperCase()} FLOW
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {currentFlow.steps.map((step, i) => {
+                const isStepActive = activeStep === i;
+                const isPast = i < activeStep;
+                const nodeColor = NODE_COLORS[step.node] || "#94a3b8";
+                const nodeLabel = NODE_LABELS[step.node] || step.node;
+                return (
+                  <div key={i} onClick={() => setActiveStep(i)}
+                    style={{ display: "flex", gap: 12, cursor: "pointer" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 20, flexShrink: 0 }}>
+                      <div style={{
+                        width: isStepActive?14:10, height: isStepActive?14:10, borderRadius: "50%",
+                        background: isStepActive ? currentFlow.color : isPast ? `${currentFlow.color}60` : "#1e293b",
+                        border: `2px solid ${isStepActive ? currentFlow.color : isPast ? `${currentFlow.color}40` : "#334155"}`,
+                        boxShadow: isStepActive ? `0 0 12px ${currentFlow.color}60` : "none",
+                        transition: "all 0.3s ease", flexShrink: 0,
+                      }} />
+                      {i < currentFlow.steps.length - 1 && (
+                        <div style={{ width: 2, flex: 1, minHeight: 16,
+                          background: isPast ? `${currentFlow.color}30` : "#1e293b",
+                          transition: "all 0.3s ease" }} />
+                      )}
+                    </div>
+                    <div style={{ paddingBottom: 14, animation: isStepActive ? "stepFadeIn 0.3s ease" : "none" }}>
+                      <div style={{
+                        display: "inline-block", padding: "2px 8px", borderRadius: 5,
+                        background: `${nodeColor}18`, color: nodeColor, fontSize: 10,
+                        fontWeight: 600, marginBottom: 4,
+                      }}>{nodeLabel}</div>
+                      <div style={{
+                        fontSize: 13,
+                        color: isStepActive ? "#f1f5f9" : isPast ? "#94a3b8" : "#475569",
+                        fontWeight: isStepActive ? 600 : 400, lineHeight: 1.5,
+                        transition: "all 0.3s ease",
+                      }}>{step.text}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {[
+              { label: "Spring Boot 3.5.9", c: "#10B981" },
+              { label: "Java 21", c: "#F59E0B" },
+              { label: "React", c: "#0EA5E9" },
+              { label: "FastAPI", c: "#F97316" },
+              { label: "k3s + Traefik", c: "#2196F3" },
+              { label: "Redis Streams", c: "#DC382D" },
+              { label: "6인 팀", c: "#8B5CF6" },
+            ].map((t) => (
+              <span key={t.label} style={{
+                padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 500,
+                background: `${t.c}10`, color: t.c, border: `1px solid ${t.c}20`,
+              }}>{t.label}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
