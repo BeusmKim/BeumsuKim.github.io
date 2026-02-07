@@ -62,7 +62,7 @@ const FLOWS=[
     {node:"media",text:"Media Service: 녹화 완료 이벤트"},{node:"redis",text:"Redis Streams: Core에 녹화 완료 전달"},
     {node:"core",text:"Core Service: AI 분석 요청"},{node:"ai",text:"AI Service: 하이라이트 구간 추출"},
     {node:"ai",text:"AI Service: STT + 자막 생성"},{node:"core",text:"Core → Media: 쇼츠 저장 요청"},
-    {node:"core",text:"Core: EC2 로컬 스토리지 저장"},{node:"client",text:"클라이언트: 쇼츠 카드 표시"},
+    {node:"media",text:"Media: EC2 로컬 스토리지 저장"},{node:"client",text:"클라이언트: 쇼츠 카드 표시"},
   ]},
   {id:"realtime-chat",label:"실시간 채팅",color:"#0EA5E9",icon:"💬",steps:[
     {node:"user",text:"시청자 채팅 메시지 전송"},{node:"client",text:"Socket.io 웹소켓 연결"},
@@ -216,14 +216,14 @@ function App(){
                 <div/>
               </div>
 
-              {/* ROW 4: DBs + Storage (EC2 is Core Service) */}
+              {/* ROW 4: DBs + Storage */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14,marginBottom:0}}>
                 <Card id="core-db" icon="🐬" title="MySQL" sub="Core DB — 유저 · 스튜디오" {...cp}/>
-                <div className="arch-card" style={{background:"rgba(16,185,129,.06)",border:"1.5px solid rgba(16,185,129,.15)",borderRadius:12,padding:"12px 16px"}}>
-                  <div className="title"><span style={{color:"#10B981"}}>💾 EC2 Local Storage</span></div>
-                  <div className="sub" style={{color:"#475569"}}>Core — 영상 · 녹화 · 쇼츠 클립</div>
-                </div>
                 <Card id="media-db" icon="🐬" title="MySQL" sub="Media DB — 녹화 · 채팅" {...cp}/>
+                <div className="arch-card" style={{background:"rgba(236,72,153,.06)",border:"1.5px solid rgba(236,72,153,.15)",borderRadius:12,padding:"12px 16px"}}>
+                  <div className="title"><span style={{color:"#EC4899"}}>💾 EC2 Local Storage</span></div>
+                  <div className="sub" style={{color:"#475569"}}>Media — 영상 · 녹화 · 쇼츠 클립</div>
+                </div>
               </div>
 
               {/* Arrow */}
