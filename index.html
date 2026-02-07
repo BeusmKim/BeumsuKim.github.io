@@ -56,7 +56,7 @@ const FLOWS=[
     {node:"user",text:"스트리머 방송 시작"},{node:"client",text:"WebRTC 미디어 캡처"},
     {node:"traefik",text:"Traefik Ingress 라우팅"},{node:"media",text:"Media Service: WebRTC/RTMP 처리"},
     {node:"redis",text:"Redis Streams: 방송 시작 이벤트"},{node:"core",text:"Core Service: 스튜디오 상태 업데이트"},
-    {node:"platform",text:"YouTube 송출"},
+    {node:"platform",text:"YouTube RTMP 라이브 송출"},
   ]},
   {id:"ai-shorts",label:"AI 쇼츠 생성",color:"#F97316",icon:"✂️",steps:[
     {node:"media",text:"Media Service: 녹화 완료 이벤트"},{node:"redis",text:"Redis Streams: Core에 녹화 완료 전달"},
@@ -173,7 +173,7 @@ function App(){
               {/* ROW 1: Users + Platforms */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:0}}>
                 <Card id="user" icon="👤" title="Users / Streamers" sub="브라우저 · 모바일 접속" {...cp}/>
-                <Card id="platform" icon="📡" title="External Platforms" sub="YouTube" {...cp}/>
+                <Card id="platform" icon="📡" title="YouTube" sub="RTMP 라이브 송출" {...cp}/>
               </div>
 
               {/* Arrow */}
@@ -199,7 +199,7 @@ function App(){
               {/* ROW 3: Core + Media + AI */}
               <div style={{display:"grid",gridTemplateColumns:"1fr 1.2fr 0.9fr",gap:14,marginBottom:0}}>
                 <Card id="core" icon="🟢" title="Core Service" sub="Auth · User · Studio · Workspace" port="8080" {...cp}/>
-                <Card id="media" icon="🩷" title="Media Service" sub="Streaming · Recording · Chat · Storage(EC2 Local)" port="8081" {...cp}/>
+                <Card id="media" icon="🩷" title="Media Service" sub="Streaming · Recording · Chat · Storage(EC2 Local)" port="8082" {...cp}/>
                 <Card id="ai" icon="🧠" title="AI Service (via Core)" sub="AutoClip · STT(Whisper) · 자막 · 분석" port="8000" {...cp}/>
               </div>
 
@@ -243,7 +243,7 @@ function App(){
             <span style={{fontSize:12,fontWeight:700,color:"#64748b",marginRight:8,lineHeight:"28px"}}>🏗️ Infra</span>
             {[
               {l:"☸️ k3s",c:"#326CE5"},{l:"🐳 Docker",c:"#2496ED"},{l:"🔀 Traefik",c:"#2196F3"},
-              {l:"🔧 Jenkins",c:"#D24939"},{l:"🔴 Redis",c:"#DC382D"},{l:"📈 Prometheus",c:"#E6522C"},
+              {l:"🔴 Redis",c:"#DC382D"},{l:"📈 Prometheus",c:"#E6522C"},
               {l:"📉 Grafana",c:"#F46800"},{l:"💾 EC2 Local",c:"#94a3b8"},{l:"🐬 MySQL",c:"#10B981"},
             ].map(t=>(
               <span key={t.l} style={{padding:"4px 10px",borderRadius:7,fontSize:11,fontWeight:500,
