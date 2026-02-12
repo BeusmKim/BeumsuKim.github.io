@@ -5,12 +5,11 @@ summary: "CV 파이프라인을 반복 개선 가능한 형태로 정리하고 �
 period: "2025–2026"
 role: "AI Engineer"
 stack: "Python, (Model), Data Pre/Post Processing"
-image: /assets/img/projects/image-analysis.jpg
+image: /assets/img/projects/image-analysis-placeholder.jpg
 links:
   - label: "Repository"
     url: "https://github.com/username/REPO"
 ---
-
 ## Problem
 모델 성능은 단순 학습보다 **데이터 품질/전처리/후처리의 설계**에 의해 크게 흔들립니다.  
 본 프로젝트는 전체 파이프라인을 모듈화해 개선 사이클이 빠르게 돌 수 있게 구성했습니다.

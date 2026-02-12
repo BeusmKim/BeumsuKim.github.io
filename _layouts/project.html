@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{{ page.title }} · {{ site.title }}</title>
     <meta name="description" content="{{ page.summary | default: site.description }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     {% seo %}
   </head>
@@ -12,6 +18,7 @@
   <body>
     <div class="shell">
       {% include sidebar.html %}
+
       <main class="content">
         <header class="page-header">
           <h1 class="page-title">{{ page.title }}</h1>
@@ -22,6 +29,8 @@
 
         {% if page.image %}
           <img class="hero" src="{{ page.image | relative_url }}" alt="{{ page.title }} cover" />
+        {% else %}
+          <div class="hero placeholder">Project image</div>
         {% endif %}
 
         <section class="meta-grid">
@@ -38,8 +47,10 @@
           {% endif %}
         </section>
 
-        <article class="prose">
-          {{ content }}
+        <article class="paper">
+          <div class="prose">
+            {{ content }}
+          </div>
         </article>
 
         <footer class="footer">

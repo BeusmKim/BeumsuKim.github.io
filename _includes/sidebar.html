@@ -1,0 +1,33 @@
+<aside class="sidebar">
+  <div class="identity">
+    <img class="avatar" src="{{ "/assets/img/profile.jpg" | relative_url }}" alt="Profile photo" />
+    <div class="name">김범수</div>
+    <div class="role">Applied AI Engineer · Backend Systems</div>
+
+    <div class="chips">
+      <span>Speech/NLP</span>
+      <span>Media</span>
+      <span>FastAPI</span>
+      <span>MSA</span>
+      <span>AWS Batch</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
+      <a class="btn" href="mailto:you@email.com">Email</a>
+      <a class="btn" href="{{ "/assets/resume.pdf" | relative_url }}">Resume</a>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a class="{% if page.url == "/" %}active{% endif %}" href="{{ "/" | relative_url }}">Home</a>
+    <a class="{% if page.url contains "/projects" %}active{% endif %}" href="{{ "/projects" | relative_url }}">Projects</a>
+    <a class="{% if page.url contains "/experience" %}active{% endif %}" href="{{ "/experience" | relative_url }}">Experience</a>
+    <a class="{% if page.url contains "/contact" %}active{% endif %}" href="{{ "/contact" | relative_url }}">Contact</a>
+  </nav>
+
+  <div class="meta">
+    <div class="line">GitHub: <a href="https://github.com/BeusmKim">github.com/BeusmKim</a></div>
+    <div class="line">Email: <a href="mailto:you@email.com">you@email.com</a> <span class="small-note">(replace)</span></div>
+  </div>
+</aside>

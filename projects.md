@@ -5,10 +5,20 @@ subtitle: "Selected work — problem framing, implementation, and production con
 permalink: /projects
 ---
 
+<div class="grid">
 {% for p in site.projects %}
-<div class="card">
-  <strong><a href="{{ p.url | relative_url }}">{{ p.title }}</a></strong><br/>
-  <span class="kpi">{{ p.summary }}</span><br/>
-  <span class="kpi">Stack: {{ p.stack }}</span>
-</div>
+  <a class="project-tile" href="{{ p.url | relative_url }}">
+    {% if p.image %}
+      <div class="project-thumb"><img src="{{ p.image | relative_url }}" alt="{{ p.title }} thumbnail" /></div>
+    {% else %}
+      <div class="project-thumb placeholder">No image</div>
+    {% endif %}
+
+    <div>
+      <div class="project-title">{{ p.title }}</div>
+      <div class="kpi">{{ p.summary }}</div>
+      <div class="kpi">Stack: {{ p.stack }}</div>
+    </div>
+  </a>
 {% endfor %}
+</div>

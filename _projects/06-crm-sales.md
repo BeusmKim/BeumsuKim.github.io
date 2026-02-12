@@ -5,9 +5,8 @@ summary: "현장 응대 데이터를 구조화하고 맞춤 제안 중심 CRM �
 period: "2024–2025"
 role: "Sales Ops / CRM"
 stack: "CRM Process Design, Customer Journey, Data Organization"
-image: /assets/img/projects/crm.jpg
+image: /assets/img/projects/crm_mainpage.png
 ---
-
 ## Context
 판매/상담은 감각에 의존하기 쉽지만, 성과가 재현되려면 프로세스가 필요합니다.  
 현장 경험을 기반으로 고객 응대 흐름을 구조화하고, 맞춤 제안 중심으로 운영 방식을 개선했습니다.

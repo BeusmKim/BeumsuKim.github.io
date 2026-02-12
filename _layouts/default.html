@@ -4,43 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{{ page.title }} · {{ site.title }}</title>
-    <meta name="description" content="{{ site.description }}" />
+    <meta name="description" content="{{ page.subtitle | default: site.description }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     {% seo %}
   </head>
 
   <body>
     <div class="shell">
-      <aside class="sidebar">
-        <div class="identity">
-            <img class="avatar" src="{{ "/assets/img/profile.jpg" | relative_url }}" alt="Profile photo" />
-            <div class="name">김범수</div>
-            <div class="role">AI / Backend · Applied ML</div>
-        </div>
-
-        <nav class="nav">
-          <a class="{% if page.url == "/" %}active{% endif %}" href="{{ "/" | relative_url }}">Home</a>
-          <a class="{% if page.url contains "projects" %}active{% endif %}" href="{{ "/projects" | relative_url }}">Projects</a>
-          <a class="{% if page.url contains "experience" %}active{% endif %}" href="{{ "/experience" | relative_url }}">Experience</a>
-          <a class="{% if page.url contains "contact" %}active{% endif %}" href="{{ "/contact" | relative_url }}">Contact</a>
-        </nav>
-
-        <div class="meta">
-          <div class="line">GitHub: <a href="https://github.com/username">github.com/username</a></div>
-          <div class="line">Email: <a href="mailto:you@email.com">you@email.com</a></div>
-        </div>
-      </aside>
+      {% include sidebar.html %}
 
       <main class="content">
-        <header class="page-header">
-          <h1 class="page-title">{{ page.title }}</h1>
-          {% if page.subtitle %}
-            <p class="page-subtitle">{{ page.subtitle }}</p>
-          {% endif %}
-        </header>
+        {% unless page.hide_title %}
+          <header class="page-header">
+            <h1 class="page-title">{{ page.title }}</h1>
+            {% if page.subtitle %}
+              <p class="page-subtitle">{{ page.subtitle }}</p>
+            {% endif %}
+          </header>
+        {% endunless %}
 
-        <article class="prose">
-          {{ content }}
+        <article class="paper">
+          <div class="prose">
+            {{ content }}
+          </div>
         </article>
 
         <footer class="footer">

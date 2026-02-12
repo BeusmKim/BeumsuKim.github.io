@@ -1,4 +1,3 @@
-
 ---
 layout: project
 title: OneTakeStudio — AI-Assisted Short-form Editing Pipeline
@@ -6,14 +5,13 @@ summary: "STT 기반 하이라이트 구간 선정과 클립 생성 흐름을 �
 period: "2026"
 role: "AI/Backend"
 stack: "Python, faster-whisper, (LLM post-processing), FFmpeg, FastAPI, MSA"
-image: /assets/img/projects/onetakestudio.jpg
+image: /assets/img/projects/onetakestudio_mainpage.png
 links:
   - label: "Repository"
     url: "https://github.com/username/REPO"
   - label: "Demo"
     url: "https://username.github.io/DEMO"
 ---
-
 ## Overview
 크리에이터 편집 작업에서 가장 큰 비용은 **긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업**입니다.  
 본 프로젝트는 STT 결과(타임스탬프 포함)를 활용해 **후보 구간을 구조화**하고, 클립 생성까지 연결되는 파이프라인을 구현했습니다.

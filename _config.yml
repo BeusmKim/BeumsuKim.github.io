@@ -1,6 +1,7 @@
-title: "Portfolio"
-description: "AI-focused portfolio — applied ML, media processing, backend systems"
-url: "https://username.github.io"
+title: "Kim Beomsoo"
+description: "Applied AI · Media processing · Backend systems"
+url: "https://beusmkim.github.io"
+lang: "ko-KR"
 markdown: kramdown
 
 plugins:

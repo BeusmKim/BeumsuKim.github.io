@@ -5,12 +5,11 @@ summary: "기후/해양 변화 리스크를 위성 데이터 기반으로 조기
 period: "2026"
 role: "Data/AI"
 stack: "Remote Sensing, Feature Engineering, Risk Modeling (Concept)"
-image: /assets/img/projects/satellite.jpg
+image: /assets/img/projects/Tamna-eye_solution.png
 links:
   - label: "Docs"
     url: "https://github.com/username/REPO"
 ---
-
 ## Overview
 관광/양식/연안 산업은 이상기후로 인한 해양 환경 변화에 민감합니다.  
 본 작업은 위성/환경 데이터를 활용해 **사전 경보(early warning)** 형태로 제공할 수 있는 서비스 구조를 설계했습니다.

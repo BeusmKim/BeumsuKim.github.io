@@ -5,12 +5,11 @@ summary: "OBS 환경에서 영상 구간 컷/자막 워크플로우를 자동화
 period: "2026"
 role: "Backend / Media Pipeline"
 stack: "Python, FFmpeg, faster-whisper, Windows 환경 운영"
-image: /assets/img/projects/obs-clip.jpg
+image: /assets/img/projects/obs-clip-placeholder.jpg
 links:
   - label: "Repository"
     url: "https://github.com/username/REPO"
 ---
-
 ## Problem
 - OBS/로컬 환경에서 영상 처리 도구 체인이 길어질수록 설치/경로/호환성 이슈가 잦음
 - ffprobe 출력 포맷 등 실무적인 예외 처리 미흡 시 전체 파이프라인이 중단
