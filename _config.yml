@@ -1,0 +1,12 @@
+title: "Portfolio"
+description: "AI-focused portfolio — applied ML, media processing, backend systems"
+url: "https://username.github.io"
+markdown: kramdown
+
+# GitHub Pages에서 기본으로 지원되는 플러그인만 사용
+plugins:
+  - jekyll-seo-tag
+
+# 빌드 제외
+exclude:
+  - README.md
