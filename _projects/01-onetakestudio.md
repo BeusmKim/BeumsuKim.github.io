@@ -6,11 +6,14 @@ period: "2026"
 role: "AI/Backend"
 stack: "Python, faster-whisper, (LLM post-processing), FFmpeg, FastAPI, MSA"
 image: /assets/img/projects/onetakestudio_mainpage.png
+video: /assets/img/projects/onetakestudio_presentation.mp4
 links:
   - label: "Repository"
     url: "https://github.com/username/REPO"
   - label: "Demo"
     url: "https://username.github.io/DEMO"
+order: 40
+featured: true
 ---
 ## Overview
 크리에이터 편집 작업에서 가장 큰 비용은 **긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업**입니다.  
@@ -31,6 +34,11 @@ links:
 - STT: faster-whisper(Whisper) 기반 타임라인 추출
 - Media: FFmpeg/ffprobe로 메타데이터 검증 및 컷/렌더 처리
 - Serving: FastAPI 기반 작업 제어, 무거운 처리 분리로 안정성 확보
+
+## Screenshots & Demo
+![OneTakeStudio - Main Page](/assets/img/projects/onetakestudio_mainpage.png)
+![OneTakeStudio - Shorts Generation](/assets/img/projects/onetakestudio_generate_shorts.png)
+![OneTakeStudio - Shorts Output](/assets/img/projects/onetakestudio_shorts_output.png)
 
 ## Outcome
 - 하이라이트 후보 구간 → 클립 생성까지의 편집 단계를 파이프라인으로 연결

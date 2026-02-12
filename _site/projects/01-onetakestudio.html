@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OneTakeStudio — AI-Assisted Short-form Editing Pipeline · Kim Beomsoo</title>
+    <meta name="description" content="STT 기반 하이라이트 구간 선정과 클립 생성 흐름을 제품 형태로 구성" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>OneTakeStudio — AI-Assisted Short-form Editing Pipeline | Kim Beomsoo</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="OneTakeStudio — AI-Assisted Short-form Editing Pipeline" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="Overview 크리에이터 편집 작업에서 가장 큰 비용은 긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업입니다. 본 프로젝트는 STT 결과(타임스탬프 포함)를 활용해 후보 구간을 구조화하고, 클립 생성까지 연결되는 파이프라인을 구현했습니다." />
+<meta property="og:description" content="Overview 크리에이터 편집 작업에서 가장 큰 비용은 긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업입니다. 본 프로젝트는 STT 결과(타임스탬프 포함)를 활용해 후보 구간을 구조화하고, 클립 생성까지 연결되는 파이프라인을 구현했습니다." />
+<link rel="canonical" href="https://beusmkim.github.io/projects/01-onetakestudio" />
+<meta property="og:url" content="https://beusmkim.github.io/projects/01-onetakestudio" />
+<meta property="og:site_name" content="Kim Beomsoo" />
+<meta property="og:image" content="https://beusmkim.github.io/assets/img/projects/onetakestudio_mainpage.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://beusmkim.github.io/assets/img/projects/onetakestudio_mainpage.png" />
+<meta property="twitter:title" content="OneTakeStudio — AI-Assisted Short-form Editing Pipeline" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Overview 크리에이터 편집 작업에서 가장 큰 비용은 긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업입니다. 본 프로젝트는 STT 결과(타임스탬프 포함)를 활용해 후보 구간을 구조화하고, 클립 생성까지 연결되는 파이프라인을 구현했습니다.","headline":"OneTakeStudio — AI-Assisted Short-form Editing Pipeline","image":"https://beusmkim.github.io/assets/img/projects/onetakestudio_mainpage.png","url":"https://beusmkim.github.io/projects/01-onetakestudio"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+  <div class="identity">
+    <img class="avatar" src="/assets/img/profile.jpg" alt="Profile photo" />
+    <div class="name">김범수</div>
+    <div class="role">AI Engineer · Data Analyst</div>
+
+    <div class="chips">
+      <span>Machine Learning</span>
+      <span>Data Analysis</span>
+      <span>LLM / Vision</span>
+      <span>Experimentation</span>
+      <span>Productization</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
+      <a class="btn" href="mailto:beumsu0702@naver.com">Email</a>
+      <a class="btn" href="/assets/resume.pdf">Resume</a>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a class="" href="/">Home</a>
+    <a class="" href="/about">About Me</a>
+    <a class="active" href="/projects">Projects</a>
+    <a class="" href="/experience">Experience</a>
+    <a class="" href="/contact">Contact</a>
+  </nav>
+
+  <div class="meta">
+    <div class="line">Education: Kyung Hee Univ. (B.S., Mechanical Engineering)</div>
+    <div class="line">GitHub: <a href="https://github.com/BeusmKim">github.com/BeusmKim</a></div>
+    <div class="line">Phone: <a href="tel:01084212325">010-8421-2325</a></div>
+    <div class="line">Email: <a href="mailto:beumsu0702@naver.com">beumsu0702@naver.com</a></div>
+  </div>
+</aside>
+
+
+      <main class="content">
+        <header class="page-header">
+          <h1 class="page-title">OneTakeStudio — AI-Assisted Short-form Editing Pipeline</h1>
+          
+            <p class="page-subtitle">STT 기반 하이라이트 구간 선정과 클립 생성 흐름을 제품 형태로 구성</p>
+          
+        </header>
+
+        
+          <video class="hero" controls preload="metadata">
+            <source src="/assets/img/projects/onetakestudio_presentation.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        
+
+        <section class="meta-grid">
+          <div><span>Period</span>2026</div>
+          <div><span>Role</span>AI/Backend</div>
+          <div><span>Stack</span>Python, faster-whisper, (LLM post-processing), FFmpeg, FastAPI, MSA</div>
+          
+            <div class="links">
+              <span>Links</span>
+              
+                <a href="https://github.com/username/REPO">Repository</a>
+              
+                <a href="https://username.github.io/DEMO">Demo</a>
+              
+            </div>
+          
+        </section>
+
+        <article class="paper">
+          <div class="prose">
+            <h2 id="overview">Overview</h2>
+<p>크리에이터 편집 작업에서 가장 큰 비용은 <strong>긴 영상에서 쓸 만한 구간을 찾고, 자막/클립 형태로 정리하는 반복 작업</strong>입니다.<br />
+본 프로젝트는 STT 결과(타임스탬프 포함)를 활용해 <strong>후보 구간을 구조화</strong>하고, 클립 생성까지 연결되는 파이프라인을 구현했습니다.</p>
+
+<h2 id="problem">Problem</h2>
+<ul>
+  <li>긴 영상에서 하이라이트 탐색/선정이 수작업에 의존</li>
+  <li>자막(문장 단위) 품질 및 구간 컷(문장 중간 절단 방지)이 중요</li>
+  <li>편집(무거운 미디어 작업)과 서비스 API가 결합되면 장애 전파/확장이 어려움</li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+<ul>
+  <li><strong>Timestamped STT</strong> 결과를 세그먼트 단위 데이터로 정리</li>
+  <li>문장 단위 보존을 기준으로 하이라이트 후보 구간을 구성(문장 중간 컷 방지)</li>
+  <li>FFmpeg 기반으로 클립 생성/렌더링 자동화</li>
+  <li>API 서버와 무거운 작업 계층을 분리하는 <strong>MSA 지향 구조</strong> 적용</li>
+</ul>
+
+<h2 id="technical-notes">Technical Notes</h2>
+<ul>
+  <li>STT: faster-whisper(Whisper) 기반 타임라인 추출</li>
+  <li>Media: FFmpeg/ffprobe로 메타데이터 검증 및 컷/렌더 처리</li>
+  <li>Serving: FastAPI 기반 작업 제어, 무거운 처리 분리로 안정성 확보</li>
+</ul>
+
+<h2 id="screenshots--demo">Screenshots &amp; Demo</h2>
+<p><img src="/assets/img/projects/onetakestudio_mainpage.png" alt="OneTakeStudio - Main Page" />
+<img src="/assets/img/projects/onetakestudio_generate_shorts.png" alt="OneTakeStudio - Shorts Generation" />
+<img src="/assets/img/projects/onetakestudio_shorts_output.png" alt="OneTakeStudio - Shorts Output" /></p>
+
+<h2 id="outcome">Outcome</h2>
+<ul>
+  <li>하이라이트 후보 구간 → 클립 생성까지의 편집 단계를 파이프라인으로 연결</li>
+  <li>운영 관점에서 무거운 미디어 처리와 API를 분리해 확장/격리 가능한 구조를 확보</li>
+</ul>
+
+<h2 id="what-id-improve-next">What I’d Improve Next</h2>
+<ul>
+  <li>품질 지표(선정 정확도, 편집 시간 단축) 정의 및 A/B 기반 평가 체계화</li>
+  <li>작업 큐/배치 계층(AWS Batch 등)으로 렌더 처리의 스케일링 강화</li>
+</ul>
+
+          </div>
+        </article>
+
+        <footer class="footer">
+          <span>© 2026 Kim Beomsoo</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

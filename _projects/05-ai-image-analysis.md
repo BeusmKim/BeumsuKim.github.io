@@ -9,6 +9,9 @@ image: /assets/img/projects/image-analysis-placeholder.jpg
 links:
   - label: "Repository"
     url: "https://github.com/username/REPO"
+order: 50
+featured: false
+published: false
 ---
 ## Problem
 모델 성능은 단순 학습보다 **데이터 품질/전처리/후처리의 설계**에 의해 크게 흔들립니다.  

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 · Kim Beomsoo</title>
+    <meta name="description" content="Qwen 2.5-7B 학습 후 92% 정체 구간에서, 룰 기반 점수/다중 예측 보정으로 96.7%까지 개선" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 | Kim Beomsoo</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다." />
+<meta property="og:description" content="Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다." />
+<link rel="canonical" href="https://beusmkim.github.io/projects/09-vqa-qwen" />
+<meta property="og:url" content="https://beusmkim.github.io/projects/09-vqa-qwen" />
+<meta property="og:site_name" content="Kim Beomsoo" />
+<meta property="og:image" content="https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg" />
+<meta property="twitter:title" content="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다.","headline":"VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정","image":"https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg","url":"https://beusmkim.github.io/projects/09-vqa-qwen"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+  <div class="identity">
+    <img class="avatar" src="/assets/img/profile.jpg" alt="Profile photo" />
+    <div class="name">김범수</div>
+    <div class="role">AI Engineer · Data Analyst</div>
+
+    <div class="chips">
+      <span>Machine Learning</span>
+      <span>Data Analysis</span>
+      <span>LLM / Vision</span>
+      <span>Experimentation</span>
+      <span>Productization</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
+      <a class="btn" href="mailto:beumsu0702@naver.com">Email</a>
+      <a class="btn" href="/assets/resume.pdf">Resume</a>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a class="" href="/">Home</a>
+    <a class="" href="/about">About Me</a>
+    <a class="active" href="/projects">Projects</a>
+    <a class="" href="/experience">Experience</a>
+    <a class="" href="/contact">Contact</a>
+  </nav>
+
+  <div class="meta">
+    <div class="line">Education: Kyung Hee Univ. (B.S., Mechanical Engineering)</div>
+    <div class="line">GitHub: <a href="https://github.com/BeusmKim">github.com/BeusmKim</a></div>
+    <div class="line">Phone: <a href="tel:01084212325">010-8421-2325</a></div>
+    <div class="line">Email: <a href="mailto:beumsu0702@naver.com">beumsu0702@naver.com</a></div>
+  </div>
+</aside>
+
+
+      <main class="content">
+        <header class="page-header">
+          <h1 class="page-title">VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정</h1>
+          
+            <p class="page-subtitle">Qwen 2.5-7B 학습 후 92% 정체 구간에서, 룰 기반 점수/다중 예측 보정으로 96.7%까지 개선</p>
+          
+        </header>
+
+        
+          <img class="hero" src="/assets/img/projects/vqa-qwen.jpg" alt="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 cover" />
+        
+
+        <section class="meta-grid">
+          <div><span>Period</span>2026</div>
+          <div><span>Role</span>AI Engineer</div>
+          <div><span>Stack</span>Data Augmentation, Fine-tuning, Inference Strategy</div>
+          
+            <div class="links">
+              <span>Links</span>
+              
+                <a href="https://github.com/BeusmKim/REPO">Repository</a>
+              
+            </div>
+          
+        </section>
+
+        <article class="paper">
+          <div class="prose">
+            <h2 id="problem">Problem</h2>
+<p>데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다.<br />
+단순 튜닝 반복이 아닌, <strong>추론 단계의 전략</strong>이 필요했습니다.</p>
+
+<h2 id="approach">Approach</h2>
+<ul>
+  <li>이미지 증강과 하이퍼파라미터 조정으로 Qwen 2.5-7B 기반 모델 학습</li>
+  <li>성능 정체 이후, 룰 기반 점수 시스템을 도입
+    <ul>
+      <li>동일 이미지에 대해 여러 번 예측을 수행</li>
+      <li>예측된 후보들에 점수를 부여하고 최종 답안을 보정(일관성 강화)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="result">Result</h2>
+<ul>
+  <li>정확도 92% → <strong>96.7%</strong>로 개선</li>
+  <li>“학습만으로 안 되는 구간”에서 추론/보정 전략으로 성능을 끌어올리는 접근을 체득</li>
+</ul>
+
+<h2 id="learnings">Learnings</h2>
+<ul>
+  <li>모델링 외에도 전처리/후처리·추론 전략이 제품 성능을 결정하는 핵심 축이 될 수 있음</li>
+</ul>
+
+          </div>
+        </article>
+
+        <footer class="footer">
+          <span>© 2026 Kim Beomsoo</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>이통사 고객 LTV 모델 개선 & 이탈 예측 · Kim Beomsoo</title>
+    <meta name="description" content="ARPU 중심 접근의 한계를 보완해 다중변수 기반 LTV 모델을 설계하고, 이탈 위험군 분류 및 전환 전략을 제안" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>이통사 고객 LTV 모델 개선 &amp; 이탈 예측 | Kim Beomsoo</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="이통사 고객 LTV 모델 개선 &amp; 이탈 예측" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="Overview 통신 서비스는 가격/사용 패턴/결합 여부 등 요인이 복합적으로 작동합니다. 단일 지표(ARPU) 중심의 예측은 설명력에 한계가 있어, 요금제·데이터 사용·결합·부가서비스 이용 등 변수를 반영한 LTV 모델을 설계했습니다." />
+<meta property="og:description" content="Overview 통신 서비스는 가격/사용 패턴/결합 여부 등 요인이 복합적으로 작동합니다. 단일 지표(ARPU) 중심의 예측은 설명력에 한계가 있어, 요금제·데이터 사용·결합·부가서비스 이용 등 변수를 반영한 LTV 모델을 설계했습니다." />
+<link rel="canonical" href="https://beusmkim.github.io/projects/08-churn-ltv" />
+<meta property="og:url" content="https://beusmkim.github.io/projects/08-churn-ltv" />
+<meta property="og:site_name" content="Kim Beomsoo" />
+<meta property="og:image" content="https://beusmkim.github.io/assets/img/projects/churn-ltv.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://beusmkim.github.io/assets/img/projects/churn-ltv.jpg" />
+<meta property="twitter:title" content="이통사 고객 LTV 모델 개선 &amp; 이탈 예측" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Overview 통신 서비스는 가격/사용 패턴/결합 여부 등 요인이 복합적으로 작동합니다. 단일 지표(ARPU) 중심의 예측은 설명력에 한계가 있어, 요금제·데이터 사용·결합·부가서비스 이용 등 변수를 반영한 LTV 모델을 설계했습니다.","headline":"이통사 고객 LTV 모델 개선 &amp; 이탈 예측","image":"https://beusmkim.github.io/assets/img/projects/churn-ltv.jpg","url":"https://beusmkim.github.io/projects/08-churn-ltv"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+  <div class="identity">
+    <img class="avatar" src="/assets/img/profile.jpg" alt="Profile photo" />
+    <div class="name">김범수</div>
+    <div class="role">AI Engineer · Data Analyst</div>
+
+    <div class="chips">
+      <span>Machine Learning</span>
+      <span>Data Analysis</span>
+      <span>LLM / Vision</span>
+      <span>Experimentation</span>
+      <span>Productization</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
+      <a class="btn" href="mailto:beumsu0702@naver.com">Email</a>
+      <a class="btn" href="/assets/resume.pdf">Resume</a>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a class="" href="/">Home</a>
+    <a class="" href="/about">About Me</a>
+    <a class="active" href="/projects">Projects</a>
+    <a class="" href="/experience">Experience</a>
+    <a class="" href="/contact">Contact</a>
+  </nav>
+
+  <div class="meta">
+    <div class="line">Education: Kyung Hee Univ. (B.S., Mechanical Engineering)</div>
+    <div class="line">GitHub: <a href="https://github.com/BeusmKim">github.com/BeusmKim</a></div>
+    <div class="line">Phone: <a href="tel:01084212325">010-8421-2325</a></div>
+    <div class="line">Email: <a href="mailto:beumsu0702@naver.com">beumsu0702@naver.com</a></div>
+  </div>
+</aside>
+
+
+      <main class="content">
+        <header class="page-header">
+          <h1 class="page-title">이통사 고객 LTV 모델 개선 & 이탈 예측</h1>
+          
+            <p class="page-subtitle">ARPU 중심 접근의 한계를 보완해 다중변수 기반 LTV 모델을 설계하고, 이탈 위험군 분류 및 전환 전략을 제안</p>
+          
+        </header>
+
+        
+          <img class="hero" src="/assets/img/projects/churn-ltv.jpg" alt="이통사 고객 LTV 모델 개선 & 이탈 예측 cover" />
+        
+
+        <section class="meta-grid">
+          <div><span>Period</span>2025–2026</div>
+          <div><span>Role</span>Data Analyst</div>
+          <div><span>Stack</span>Python, pandas, scikit-learn, Regression/Classification</div>
+          
+            <div class="links">
+              <span>Links</span>
+              
+                <a href="https://github.com/BeusmKim/REPO">Repository</a>
+              
+            </div>
+          
+        </section>
+
+        <article class="paper">
+          <div class="prose">
+            <h2 id="overview">Overview</h2>
+<p>통신 서비스는 가격/사용 패턴/결합 여부 등 요인이 복합적으로 작동합니다.<br />
+단일 지표(ARPU) 중심의 예측은 설명력에 한계가 있어, 요금제·데이터 사용·결합·부가서비스 이용 등 변수를 반영한 LTV 모델을 설계했습니다.</p>
+
+<h2 id="problem">Problem</h2>
+<ul>
+  <li>ARPU 중심 모델은 고객 가치의 원인을 설명하기 어렵고, 실행 전략으로 연결되기 어려움</li>
+  <li>이탈은 “발생 후 대응”보다 <strong>위험 신호를 조기에 탐지</strong>하는 체계가 필요</li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+<ul>
+  <li>요금제/데이터 사용 패턴/결합/부가서비스 등 변수를 반영한 다중회귀 기반 LTV 모델 설계 및 유효성 검증</li>
+  <li>이탈 고객 특성을 분석해 위험군을 분류하고, 위험 신호 발생 시 적용할 전환 전략을 제안</li>
+  <li>결과를 “분석 보고”가 아닌 “실행 플레이북” 형태로 정리</li>
+</ul>
+
+<h2 id="result">Result</h2>
+<ul>
+  <li>LTV 예측과 이탈 위험군 분류를 통해 타깃팅 우선순위 및 전환 액션을 제안 가능한 형태로 구성</li>
+</ul>
+
+<h2 id="limitation--next">Limitation &amp; Next</h2>
+<ul>
+  <li>시뮬레이션 데이터 기반이라 이벤트성 이탈 등 외생 변수를 충분히 반영하지 못함<br />
+→ 실제 운영 데이터로 확장 시, 정책/이벤트 피처 반영 및 온라인 모니터링 체계 보완 예정</li>
+</ul>
+
+          </div>
+        </article>
+
+        <footer class="footer">
+          <span>© 2026 Kim Beomsoo</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

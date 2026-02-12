@@ -1,19 +1,19 @@
 ---
 layout: default
 title: Projects
-subtitle: "Selected work — problem framing, implementation, and production considerations"
+subtitle: "Case studies — problem, approach, results, and learnings"
 permalink: /projects
 ---
 
 <div class="grid">
-{% for p in site.projects %}
+{% assign allp = site.projects | where_exp: "p", "p.published != false" | sort: "order" %}
+{% for p in allp %}
   <a class="project-tile" href="{{ p.url | relative_url }}">
     {% if p.image %}
       <div class="project-thumb"><img src="{{ p.image | relative_url }}" alt="{{ p.title }} thumbnail" /></div>
     {% else %}
       <div class="project-thumb placeholder">No image</div>
     {% endif %}
-
     <div>
       <div class="project-title">{{ p.title }}</div>
       <div class="kpi">{{ p.summary }}</div>

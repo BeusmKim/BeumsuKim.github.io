@@ -6,8 +6,13 @@ permalink: /contact
 ---
 
 <div class="card">
+  <strong>Phone</strong><br/>
+  <span class="kpi"><a href="tel:01084212325">010-8421-2325</a></span>
+</div>
+
+<div class="card" style="margin-top:12px;">
   <strong>Email</strong><br/>
-  <span class="kpi"><a href="mailto:you@email.com">you@email.com</a> (replace)</span>
+  <span class="kpi"><a href="mailto:beumsu0702@naver.com">beumsu0702@naver.com</a></span>
 </div>
 
 <div class="card" style="margin-top:12px;">

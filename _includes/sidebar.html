@@ -2,32 +2,35 @@
   <div class="identity">
     <img class="avatar" src="{{ "/assets/img/profile.jpg" | relative_url }}" alt="Profile photo" />
     <div class="name">김범수</div>
-    <div class="role">Applied AI Engineer · Backend Systems</div>
+    <div class="role">AI Engineer · Data Analyst</div>
 
     <div class="chips">
-      <span>Speech/NLP</span>
-      <span>Media</span>
-      <span>FastAPI</span>
-      <span>MSA</span>
-      <span>AWS Batch</span>
+      <span>Machine Learning</span>
+      <span>Data Analysis</span>
+      <span>LLM / Vision</span>
+      <span>Experimentation</span>
+      <span>Productization</span>
     </div>
 
     <div class="actions">
       <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
-      <a class="btn" href="mailto:you@email.com">Email</a>
+      <a class="btn" href="mailto:beumsu0702@naver.com">Email</a>
       <a class="btn" href="{{ "/assets/resume.pdf" | relative_url }}">Resume</a>
     </div>
   </div>
 
   <nav class="nav">
     <a class="{% if page.url == "/" %}active{% endif %}" href="{{ "/" | relative_url }}">Home</a>
+    <a class="{% if page.url contains "/about" %}active{% endif %}" href="{{ "/about" | relative_url }}">About Me</a>
     <a class="{% if page.url contains "/projects" %}active{% endif %}" href="{{ "/projects" | relative_url }}">Projects</a>
     <a class="{% if page.url contains "/experience" %}active{% endif %}" href="{{ "/experience" | relative_url }}">Experience</a>
     <a class="{% if page.url contains "/contact" %}active{% endif %}" href="{{ "/contact" | relative_url }}">Contact</a>
   </nav>
 
   <div class="meta">
+    <div class="line">Education: Kyung Hee Univ. (B.S., Mechanical Engineering)</div>
     <div class="line">GitHub: <a href="https://github.com/BeusmKim">github.com/BeusmKim</a></div>
-    <div class="line">Email: <a href="mailto:you@email.com">you@email.com</a> <span class="small-note">(replace)</span></div>
+    <div class="line">Phone: <a href="tel:01084212325">010-8421-2325</a></div>
+    <div class="line">Email: <a href="mailto:beumsu0702@naver.com">beumsu0702@naver.com</a></div>
   </div>
 </aside>
