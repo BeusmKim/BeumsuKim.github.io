@@ -28,11 +28,11 @@ links:
   → “분석 → 실행” 사이의 마찰 비용을 줄이는 방향으로 설계
 
 ## Screenshots
-![CRM Main Page](/assets/img/projects/crm_mainpage.png)
-![CRM Session Detail](/assets/img/projects/crm_session_detail.png)
-![CRM Customer Detail](/assets/img/projects/crm_customer_detail.png)
-![CRM Recommended](/assets/img/projects/crm_recommended.png)
-![CRM Recommended Scripts](/assets/img/projects/crm_recommended_scripts.png)
+![CRM Main Page]({{ '/assets/img/projects/crm_mainpage.png' | relative_url }})
+![CRM Session Detail]({{ '/assets/img/projects/crm_session_detail.png' | relative_url }})
+![CRM Customer Detail]({{ '/assets/img/projects/crm_customer_detail.png' | relative_url }})
+![CRM Recommended]({{ '/assets/img/projects/crm_recommended.png' | relative_url }})
+![CRM Recommended Scripts]({{ '/assets/img/projects/crm_recommended_scripts.png' | relative_url }})
 
 ## Result
 - 세그먼트 기반 타깃팅/추천/메시지 생성이 연결된 CRM 기능 프로토타입 구현

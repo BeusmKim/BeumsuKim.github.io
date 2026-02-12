@@ -22,11 +22,11 @@ featured: true
 - S3 중심 스토리지/배치 실행 구조로 확장 가능성을 확보
 
 ## Screenshots
-![Tamna-eye Main Page](/assets/img/projects/Tamna-eye_mainpage.png)
-![Tamna-eye Solution](/assets/img/projects/Tamna-eye_solution.png)
-![Tamna-eye Presentation](/assets/img/projects/Tamna-eye_presentation.PNG)
-![Tamna-eye Jeju Global Space Forum](/assets/img/projects/Tamna-eye_Jeju global space_forum.jpeg)
-![Tamna-eye Team Photo](/assets/img/projects/Tamna-eye_단체샷.JPG)
+![Tamna-eye Main Page]({{ '/assets/img/projects/Tamna-eye_mainpage.png' | relative_url }})
+![Tamna-eye Solution]({{ '/assets/img/projects/Tamna-eye_solution.png' | relative_url }})
+![Tamna-eye Presentation]({{ '/assets/img/projects/Tamna-eye_presentation.PNG' | relative_url }})
+![Tamna-eye Jeju Global Space Forum]({{ '/assets/img/projects/Tamna-eye_Jeju global space_forum.jpeg' | relative_url }})
+![Tamna-eye Team Photo]({{ '/assets/img/projects/Tamna-eye_단체샷.JPG' | relative_url }})
 
 ## Outcome
 - 사용자 입력(가중치) 기반 탐색 UI/스코어링 로직을 MVP 형태로 구현

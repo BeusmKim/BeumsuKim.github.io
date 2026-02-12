@@ -36,9 +36,9 @@ featured: true
 - Serving: FastAPI 기반 작업 제어, 무거운 처리 분리로 안정성 확보
 
 ## Screenshots & Demo
-![OneTakeStudio - Main Page](/assets/img/projects/onetakestudio_mainpage.png)
-![OneTakeStudio - Shorts Generation](/assets/img/projects/onetakestudio_generate_shorts.png)
-![OneTakeStudio - Shorts Output](/assets/img/projects/onetakestudio_shorts_output.png)
+![OneTakeStudio - Main Page]({{ '/assets/img/projects/onetakestudio_mainpage.png' | relative_url }})
+![OneTakeStudio - Shorts Generation]({{ '/assets/img/projects/onetakestudio_generate_shorts.png' | relative_url }})
+![OneTakeStudio - Shorts Output]({{ '/assets/img/projects/onetakestudio_shorts_output.png' | relative_url }})
 
 ## Outcome
 - 하이라이트 후보 구간 → 클립 생성까지의 편집 단계를 파이프라인으로 연결

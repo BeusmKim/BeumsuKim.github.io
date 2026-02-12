@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 · Kim Beumsu</title>
+    <title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 · Kim Beomsoo</title>
     <meta name="description" content="Qwen 2.5-7B 학습 후 92% 정체 구간에서, 룰 기반 점수/다중 예측 보정으로 96.7%까지 개선" />
 
     <!-- Fonts -->
@@ -11,24 +11,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/BeumsuKim.github.io/assets/css/style.css">
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 | Kim Beumsu</title>
+<title>VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 | Kim Beomsoo</title>
 <meta name="generator" content="Jekyll v3.9.2" />
 <meta property="og:title" content="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정" />
 <meta property="og:locale" content="ko_KR" />
 <meta name="description" content="Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다." />
 <meta property="og:description" content="Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다." />
-<link rel="canonical" href="https://beusmkim.github.io/projects/09-vqa-qwen" />
-<meta property="og:url" content="https://beusmkim.github.io/projects/09-vqa-qwen" />
-<meta property="og:site_name" content="Kim Beumsu" />
-<meta property="og:image" content="https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg" />
+<link rel="canonical" href="https://beusmkim.github.io/BeumsuKim.github.io/projects/09-vqa-qwen" />
+<meta property="og:url" content="https://beusmkim.github.io/BeumsuKim.github.io/projects/09-vqa-qwen" />
+<meta property="og:site_name" content="Kim Beomsoo" />
+<meta property="og:image" content="https://beusmkim.github.io/BeumsuKim.github.io/assets/img/projects/vqa-qwen.jpg" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg" />
+<meta property="twitter:image" content="https://beusmkim.github.io/BeumsuKim.github.io/assets/img/projects/vqa-qwen.jpg" />
 <meta property="twitter:title" content="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다.","headline":"VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정","image":"https://beusmkim.github.io/assets/img/projects/vqa-qwen.jpg","url":"https://beusmkim.github.io/projects/09-vqa-qwen"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Problem 데이터 증강/하이퍼파라미터 조정으로 92%까지 성능을 끌어올렸지만, 이후 개선이 정체되었습니다. 단순 튜닝 반복이 아닌, 추론 단계의 전략이 필요했습니다.","headline":"VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정","image":"https://beusmkim.github.io/BeumsuKim.github.io/assets/img/projects/vqa-qwen.jpg","url":"https://beusmkim.github.io/BeumsuKim.github.io/projects/09-vqa-qwen"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -37,7 +37,7 @@
     <div class="shell">
       <aside class="sidebar">
   <div class="identity">
-    <img class="avatar" src="/assets/img/profile.jpg" alt="Profile photo" />
+    <img class="avatar" src="/BeumsuKim.github.io/assets/img/profile.jpg" alt="Profile photo" />
     <div class="name">김범수</div>
     <div class="role">AI Engineer · Data Analyst</div>
 
@@ -52,16 +52,16 @@
     <div class="actions">
       <a class="btn" href="https://github.com/BeusmKim">GitHub</a>
       <a class="btn" href="mailto:beumsu0702@naver.com">Email</a>
-      <a class="btn" href="/assets/resume.pdf">Resume</a>
+      <a class="btn" href="/BeumsuKim.github.io/assets/resume.pdf">Resume</a>
     </div>
   </div>
 
   <nav class="nav">
-    <a class="" href="/">Home</a>
-    <a class="" href="/about">About Me</a>
-    <a class="active" href="/projects">Projects</a>
-    <a class="" href="/experience">Experience</a>
-    <a class="" href="/contact">Contact</a>
+    <a class="" href="/BeumsuKim.github.io/">Home</a>
+    <a class="" href="/BeumsuKim.github.io/about">About Me</a>
+    <a class="active" href="/BeumsuKim.github.io/projects">Projects</a>
+    <a class="" href="/BeumsuKim.github.io/experience">Experience</a>
+    <a class="" href="/BeumsuKim.github.io/contact">Contact</a>
   </nav>
 
   <div class="meta">
@@ -82,7 +82,7 @@
         </header>
 
         
-          <img class="hero" src="/assets/img/projects/vqa-qwen.jpg" alt="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 cover" />
+          <img class="hero" src="/BeumsuKim.github.io/assets/img/projects/vqa-qwen.jpg" alt="VQA(Visual Question Answering) — 성능 정체를 넘기기 위한 룰 기반 보정 cover" />
         
 
         <section class="meta-grid">
@@ -137,4 +137,3 @@
     </div>
   </body>
 </html>
-

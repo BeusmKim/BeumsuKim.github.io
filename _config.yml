@@ -1,6 +1,7 @@
 title: "Kim Beomsoo"
 description: "AI Engineer · Data Analyst · Modeling, Evaluation, Productization"
 url: "https://beusmkim.github.io"
+baseurl: "/BeumsuKim.github.io"
 lang: "ko-KR"
 markdown: kramdown
 
