@@ -5,12 +5,13 @@ subtitle: "Data-driven execution history — from customer data to measurable ou
 permalink: /experience
 ---
 
-## 연혁 (최근순)
+## 연혁 (시작 시점 순)
+<div class="timeline">
 <div class="card">
   <div class="kpi">2025.07 – 2026.06</div>
   <strong>SSAFY (Samsung Software AI Academy For Youth)</strong>
 </div>
-<div class="card" style="margin-top:12px;">
+<div class="card">
   <div class="kpi">2021.03 – 2025.02</div>
   <strong>주식회사 씨엠씨 / 영업관리팀 — LG U+ 대리점 점장</strong>
   <br/><br/>
@@ -43,13 +44,14 @@ permalink: /experience
   - 이후 AI/데이터 프로젝트에서 변수 정의, 가설 검증, 리스크 관리 체계를 우선 적용
 </div>
 <div class="card">
+  <div class="kpi">2019.07 – 2021.02</div>
+  <strong>대한민국 육군</strong>
+</div>
+<div class="card">
   <div class="kpi">2019.03 – 2025.08</div>
   <strong>Kyung Hee University</strong><br/>
   <span class="kpi">B.S. in Mechanical Engineering (졸업)</span>
 </div>
-<div class="card" style="margin-top:12px;">
-  <div class="kpi">2019.07 – 2021.02</div>
-  <strong>대한민국 육군</strong>
 </div>
 
 ## AI / 데이터 분석 직무 관점 핵심 역량

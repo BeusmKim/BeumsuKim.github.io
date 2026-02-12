@@ -107,6 +107,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ring); }
 
+.timeline .card + .card { margin-top: 12px; }
+
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
 @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
